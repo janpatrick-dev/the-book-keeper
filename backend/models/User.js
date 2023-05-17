@@ -16,7 +16,7 @@ const userSchema = mongoose.Schema({
     required: true,
     minlength: 6
   }
-});
+}, { timestamps: true });
 
 userSchema.pre('save', async function (next) {
   try {

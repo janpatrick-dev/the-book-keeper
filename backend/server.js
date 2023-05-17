@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const User = require('./models/User');
+const Book = require('./models/Book');
 
 const app = express();
 
@@ -20,11 +21,18 @@ mongoose.connect(process.env.MONGODB_URL)
     console.log(err);
   });
 
-app.post('/signup', async (req, res) => {
-  const { name, email, password } = req.body;
-
+app.post('/add-book', async (req, res) => {
   try {
-    const user = await User.create({ name, email, password });
+    const book = await Book.create(req.body);
+    res.status(201).json(book);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/signup', async (req, res) => {
+  try {
+    const user = await User.create(req.body);
     res.status(201).json(user);
   } catch (err) {
     console.log(err);
