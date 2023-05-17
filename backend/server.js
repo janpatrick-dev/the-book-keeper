@@ -2,12 +2,16 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('./models/User');
-const Book = require('./models/Book');
+const AuthRoute = require('./routes/AuthRoute');
+const BookRoute = require('./routes/BookRoute');
 
 const app = express();
 
 app.use(express.json());
+
+// routes
+app.use(AuthRoute);
+app.use(BookRoute);
 
 mongoose.connect(process.env.MONGODB_URL)
   .then((result) => {
@@ -20,21 +24,3 @@ mongoose.connect(process.env.MONGODB_URL)
   .catch((err) => {
     console.log(err);
   });
-
-app.post('/add-book', async (req, res) => {
-  try {
-    const book = await Book.create(req.body);
-    res.status(201).json(book);
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-app.post('/signup', async (req, res) => {
-  try {
-    const user = await User.create(req.body);
-    res.status(201).json(user);
-  } catch (err) {
-    console.log(err);
-  }
-});

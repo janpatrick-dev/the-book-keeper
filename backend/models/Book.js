@@ -9,12 +9,13 @@ const bookSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  yearPublished: {
-    type: Number
+  hasRead: {
+    type: Boolean,
+    required: true,
+    default: false
   },
-  imgUrl: {
-    type: String
-  }
+  yearPublished: Number,
+  imgUrl: String,
 }, { timestamps: true });
 
 const Book = mongoose.model('Book', bookSchema);
