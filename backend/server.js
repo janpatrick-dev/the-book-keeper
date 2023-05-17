@@ -22,5 +22,5 @@ mongoose.connect(process.env.MONGODB_URL)
     });
   })
   .catch((err) => {
-    console.log(err);
+    throw Error('Internal server error');
   });
