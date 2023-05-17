@@ -2,8 +2,11 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const User = require('./models/User');
 
 const app = express();
+
+app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URL)
   .then((result) => {
@@ -16,3 +19,15 @@ mongoose.connect(process.env.MONGODB_URL)
   .catch((err) => {
     console.log(err);
   });
+
+app.post('/signup', async (req, res) => {
+  // console.log(req.body);
+  const { name, email, password } = req.body;
+
+  try {
+    const user = await User.create({ name, email, password });
+    res.status(201).json(user);
+  } catch (err) {
+    console.log(err);
+  }
+});
