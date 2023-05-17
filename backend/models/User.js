@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = mongoose.Schema({
   name: {
@@ -14,6 +15,16 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     minlength: 6
+  }
+});
+
+userSchema.pre('save', async function (next) {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (err) {
+    return next(new Error('Hashing password failed. Aborting save.'))
   }
 });
 
