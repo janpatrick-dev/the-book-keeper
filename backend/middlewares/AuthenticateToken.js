@@ -7,19 +7,19 @@ const AuthenticateToken = async (req, res, next) => {
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
-    return res.sendStatus(401);
+    return ErrorUtils.handleDefaultError(res, 401);
   }
 
   try {
     const isBlacklisted = await BlacklistedToken.findOne({ token });
 
     if (isBlacklisted) {
-      return ErrorUtils.handleError(res, 401, 'Unauthorized Access');
+      return ErrorUtils.handleDefaultError(res, 401);
     }
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) {
-        return res.sendStatus(403);
+        return ErrorUtils.handleDefaultError(res, 401);
       }
       req.user = user;
       next();

@@ -1,4 +1,5 @@
 const Book = require("../models/Book");
+const ErrorUtils = require("../utils/ErrorUtils");
 
 const BookController = () => {
   const getBooks = async (req, res) => {
@@ -7,7 +8,7 @@ const BookController = () => {
       const books = await Book.find({ userId: user._id });
       res.status(200).json(books);
     } catch (err) {
-      res.status(500).json({ error: 'An error occurred' });
+      return ErrorUtils.handleDefaultError(res, 500);
     }
   };
 
@@ -18,7 +19,7 @@ const BookController = () => {
       const book = await Book.create(req.body);
       res.status(201).json(book);
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      return ErrorUtils.handleDefaultError(res, 500);
     }
   };
 
