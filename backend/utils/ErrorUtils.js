@@ -1,6 +1,13 @@
 const ErrorUtils = {
   handleError: (res, statusCode, message) => {
     res.status(statusCode).json({ error: message });
+  },
+  handleDefaultError: (res, statusCode) => {
+    const defaultErrors = {
+      500: 'Internal server error',
+    };
+    const errorMsg = defaultErrors[statusCode] || 'Unknown error';
+    res.status(statusCode).json({ error: errorMsg });
   }
 }
 
