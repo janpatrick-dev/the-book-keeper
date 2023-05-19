@@ -1,12 +1,35 @@
+import CookieUtils from "./CookieUtils";
+
 const FetchUtils = {
-  fetchWithAuth: (path, method) => {
+  authorizedGet: (path) => {
+    const accessToken = CookieUtils.getCookie('accessToken');
     return fetch(path, {
+      method: 'GET',
       headers: {
-        'Authorization': `Bearer ${document.cookie.accessToken}`,
-        'Method': method
+        'Authorization': `Bearer ${accessToken}`,
       }
     });
-  }
+  },
+  authorizedPostWithRequestData: (path, dataObj) => {
+    const accessToken = CookieUtils.getCookie('accessToken');
+    return fetch(path, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dataObj)
+    });
+  },
+  // fetchNoAuthWithRequestData: (path, method, dataObj) => {
+  //   return fetch(path, { 
+  //     method,
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(dataObj)
+  //   });
+  // }
 }
 
 export default FetchUtils;
