@@ -9,6 +9,5 @@ router.get('/signup', controller.getSignup);
 router.get('/logout', AuthenticateToken, controller.getLogout);
 router.post('/login', controller.postLogin);
 router.post('/signup', controller.postSignup);
-router.post('/refresh-token', controller.postToken);
 
 module.exports = router;

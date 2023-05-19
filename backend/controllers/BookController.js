@@ -5,7 +5,7 @@ const BookController = () => {
   const getBooks = async (req, res) => {
     try {
       const user = req.user;
-      const books = await Book.find({ userId: user._id });
+      const books = await Book.find({ userId: user._id }).sort({ createdAt: -1 });
       res.status(200).json(books);
     } catch (err) {
       return ErrorUtils.handleDefaultError(res, 500);

@@ -19,7 +19,7 @@ const AuthenticateToken = async (req, res, next) => {
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) {
-        return ErrorUtils.handleDefaultError(res, 401);
+        return ErrorUtils.handleError(res, 401, 'Access token expired');
       }
       req.user = user;
       next();

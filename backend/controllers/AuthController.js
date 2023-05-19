@@ -25,9 +25,10 @@ const AuthController = () => {
         return ErrorUtils.handleError(res, 400, 'Invalid credentials'); 
       }
 
-      const tokens = generateTokens(user);
-      setTokenCookies(res, tokens);
-      res.status(200).json(tokens);
+      const accessToken = generateAccessToken(user);
+      const userData = jwt.decode(accessToken);
+      res.cookie('accessToken', accessToken);
+      res.status(200).json(userData);
     } catch (err) {
       return ErrorUtils.handleDefaultError(res, 500);
     }
@@ -40,7 +41,11 @@ const AuthController = () => {
   const postSignup = async (req, res) => {
     try {
       const user = await User.create(req.body);
-      res.status(201).json(user);
+      
+      const accessToken = generateAccessToken(user);
+      const userData = jwt.decode(accessToken);
+      res.cookie('accessToken', accessToken);
+      res.status(201).json(userData);
     } catch (err) {
       return ErrorUtils.handleDefaultError(res, 500);
     }
@@ -50,47 +55,12 @@ const AuthController = () => {
     const accessToken = req.cookies['accessToken'];
     try {
       // blacklist access token on logout
-      await BlacklistedToken.create({ token: accessToken });
+      await addTokenToBlacklist(accessToken);
       req.user = null;
       res.clearCookie('accessToken');
-      res.clearCookie('refreshToken', {
-        path: '/refresh-token'
-      });
       res.status(200).json({ msg: 'Logout successful!'})
     } catch (err) {
       console.log(err);
-      return ErrorUtils.handleDefaultError(res, 500);
-    }
-  }
-
-  const postToken = async (req, res) => {
-    try {
-      const refreshToken = req.body.refreshToken;
-    
-      if (!refreshToken) {
-        return ErrorUtils.handleError(res, 401, 'No token received');
-      }
-      
-      // check if current refresh token is blacklisted
-      const isBlacklisted = await BlacklistedToken.exists({ token: refreshToken });
-
-      if (isBlacklisted) {
-        return ErrorUtils.handleError(res, 401, err.message);
-      }
-
-      jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async (err, user) => {
-        if (err) {
-          return ErrorUtils.handleError(res, 401, err.message);
-        }
-        // add current refresh token to blacklist
-        // before replacing it with a new one
-        await addTokenToBlacklist(refreshToken);
-
-        const tokens = generateTokens(user);
-        setTokenCookies(res, tokens);
-        res.status(200).json(tokens);
-      });
-    } catch (err) {
       return ErrorUtils.handleDefaultError(res, 500);
     }
   }
@@ -107,33 +77,6 @@ const AuthController = () => {
       { expiresIn: process.env.ACCESS_TOKEN_EXPIRY });
   }
   
-  const generateRefreshToken = (user) => {
-    const filteredUserData = {
-      _id: user._id, 
-      name: user.name, 
-      email: user.email 
-    }
-    return jwt.sign(
-      filteredUserData, 
-      process.env.REFRESH_TOKEN_SECRET, 
-      { expiresIn: process.env.REFRESH_TOKEN_EXPIRY });
-  }
-  
-  const generateTokens = (user) => {
-    const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user);
-    return { accessToken, refreshToken };
-  }
-  
-  const setTokenCookies = (res, tokens) => {
-    const { accessToken, refreshToken } = tokens;
-    res.cookie('accessToken', accessToken);
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      path: process.env.REFRESH_TOKEN_COOKIE_PATH
-    });
-  }
-  
   const addTokenToBlacklist = (token) => {
     return BlacklistedToken.create({ token });
   }
@@ -143,7 +86,6 @@ const AuthController = () => {
     postLogin,
     getSignup,
     postSignup,
-    postToken,
     getLogout
   }
 }
