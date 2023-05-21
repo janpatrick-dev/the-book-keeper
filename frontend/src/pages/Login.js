@@ -6,6 +6,9 @@ import StringUtils from '../utils/StringUtils';
 import { CircularProgress } from '@mui/material';
 import LoadingProgress from '../components/LoadingProgress';
 import { RedirectContext } from '../contexts/RedirectContext';
+import FormRowInputText from '../components/form/FormRowInputText';
+import FormButton from '../components/form/FormButton';
+import FormError from '../components/form/FormError';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -34,29 +37,26 @@ const Login = () => {
       <form onSubmit={handleSubmit} className='form'>
         <h1>Login</h1>
         <div className='divider'></div>
-        <div className='form__row'>
-          <label htmlFor='email' className='form__label'>Email</label>
-          <input 
-            type='text' 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)}
-            name='email'
-            className='form__input-text'
-          />
-        </div>
-        <div className='form__row'>
-          <label htmlFor='password' className='form__label'>Password</label>
-          <input 
-            type='password' 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)}
-            name='password'
-            className='form__input-text' />
-        </div>
-        <button disabled={isLoading} className='form__btn form__btn-login'>Log in</button>
-        { error && <p className='error'>{error}</p> }
-        { redirectError && <p className='error'>{redirectError}</p>}
-        { isLoading && <LoadingProgress />}
+        <FormRowInputText
+          type='text'
+          label='Email'
+          value={email}
+          name='email'
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <FormRowInputText
+          type='password'
+          label='Password'
+          value={password}
+          name='password'
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <FormButton 
+          disabled={isLoading} 
+          label='Log in'
+          className='form__btn-login'  />
+        <FormError error={error || redirectError} />
+        <LoadingProgress isLoading={isLoading} />
       </form>
     </div>
   );

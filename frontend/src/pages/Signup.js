@@ -4,6 +4,9 @@ import { useSignup } from '../hooks/useSignup';
 import { AuthContext } from '../contexts/AuthContext';
 import StringUtils from '../utils/StringUtils';
 import LoadingProgress from '../components/LoadingProgress';
+import FormButton from '../components/form/FormButton';
+import FormError from '../components/form/FormError';
+import FormRowInputText from '../components/form/FormRowInputText';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -29,38 +32,30 @@ const Signup = () => {
       <form onSubmit={handleSubmit} className='form'>
         <h1>Sign Up</h1>
         <div className='divider'></div>
-        <div className='form__row'>
-          <label htmlFor='name' className='form__label'>Name</label>
-          <input 
-            type='text' 
-            value={name} 
-            onChange={(e) => setName(e.target.value)}
-            name='name'
-            className='form__input-text'
-          />
-        </div>
-        <div className='form__row'>
-        <label htmlFor='email' className='form__label'>Email</label>
-          <input
-            type='text'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            name='email'
-            className='form__input-text'
-          />
-        </div>
-        <div className='form__row'>
-        <label htmlFor='password' className='form__label'>Password</label>
-          <input
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            name='password'
-            className='form__input-text' />
-        </div>
-        <button disabled={isLoading} className='form__btn form__btn-signup'>Sign up</button>
-        { error && <p className='error'>{error}</p> }
-        { isLoading && <LoadingProgress />}
+        <FormRowInputText
+          type='text'
+          label='Name'
+          value={name}
+          name='name'
+          onChange={(e) => setName(e.target.value)}
+        />
+        <FormRowInputText
+          type='text'
+          label='Email'
+          value={email}
+          name='email'
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <FormRowInputText
+          type='password'
+          label='Password'
+          value={password}
+          name='password'
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <FormButton disabled={isLoading} label='Sign up' className='form__btn-signup' />
+        <FormError error={error} />
+        <LoadingProgress isLoading={isLoading} />
       </form>
     </div>
   );

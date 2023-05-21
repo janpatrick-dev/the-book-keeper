@@ -68,8 +68,9 @@ const Books = () => {
             <option value="year-published">Sort by Year Published</option>
           </select>
         </div>
-        {(isLoading) ? (
-            <LoadingProgress />
+        {
+          isLoading ? (
+            <LoadingProgress isLoading={isLoading} />
           ) : (
             <div className="books__list">
               {books.map((book) => (

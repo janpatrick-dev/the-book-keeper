@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { useAddBook } from "../../hooks/useAddBook";
+import FormRowInputText from "../form/FormRowInputText";
+import FormButton from "../form/FormButton";
+import FormError from "../form/FormError";
+import LoadingProgress from "../LoadingProgress";
+import FormRowCheckbox from "../form/FormRowCheckbox";
 
 const BookAddForm = ({ addBook, isLoading }) => {
   const [title, setTitle] = useState('');
@@ -30,60 +34,49 @@ const BookAddForm = ({ addBook, isLoading }) => {
     <div className='books__add'>
       <form onSubmit={handleSubmit} className='form'>
         <h2>New book</h2>
-        <div className='form__row'>
-          <label htmlFor='title' className='form__label'>Title *</label>
-          <input 
-            type='text' 
-            value={title} 
-            onChange={(e) => setTitle(e.target.value)}
-            name='title'
-            className='form__input-text'
-            required
-          />
-        </div>
-        <div className='form__row'>
-          <label htmlFor='author' className='form__label'>Author Name *</label>
-          <input
-            type='text'
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-            name='author'
-            className='form__input-text'
-            required />
-        </div>
-        <div className='form__row'>
-          <label htmlFor='imgUrl' className='form__label'>Book Image URL</label>
-          <input
-            type='text'
-            value={imgUrl}
-            name='imgUrl'
-            placeholder="https://www.example.com/image.jpg"
-            className='form__input-text'
-            onChange={(e) => setImgUrl(e.target.value)}
-          />
-        </div>
-        <div className='form__row'>
-          <label htmlFor='year' className='form__label'>Year Published</label>
-          <input
-            type='number'
-            value={year}
-            onChange={handleYearInputChange}
-            name='year'
-            className='form__input-text'
-          />
-        </div>
-        <div className='form__row-checkbox'>
-          <input 
-            type='checkbox'
-            value={hasRead}
-            onChange={(e) => setHasRead(e.target.checked)}
-            name='hasRead'
-          />
-          <label htmlFor='hasRead' className="form__label">Mark as read</label>
-        </div>
-        <button disabled={isLoading} className='form__btn form__btn-add-book'>
-          Add Book
-        </button>
+        <FormRowInputText
+          type='text'
+          label='Title *'
+          value={title}
+          name='title'
+          onChange={(e) => setTitle(e.target.value)}
+          required={true}
+        />
+        <FormRowInputText
+          type='text'
+          label='Author Name *'
+          value={author}
+          name='author'
+          onChange={(e) => setAuthor(e.target.value)}
+          required={true}
+        />
+        <FormRowInputText
+          type='text'
+          label='Book Image URL'
+          value={imgUrl}
+          name='imgUrl'
+          onChange={(e) => setImgUrl(e.target.value)}
+          placeholder='https://www.example.com/image.jpg'
+        />
+        <FormRowInputText
+          type='number'
+          label='Year Published'
+          value={year}
+          name='year'
+          onChange={handleYearInputChange}
+        />
+        <FormRowCheckbox
+          label='Mark as read'
+          name='hasRead'
+          value={hasRead}
+          onChange={(e) => setHasRead(e.target.checked)}
+        />
+        <FormButton 
+          disabled={isLoading} 
+          label='Add Book'
+          className='form__btn-add-book'  />
+        {/* <FormError error={error || redirectError} /> */}
+        {/* <LoadingProgress isLoading={isLoading} /> */}
       </form>
     </div>
   )

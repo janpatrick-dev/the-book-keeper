@@ -36,10 +36,10 @@ const Book = ({ book, deleteBook }) => {
           <p className='books__item-created'>{moment(createdAt).fromNow()}</p>
         </div>
         <div className='books__item-actions'>
-        <DeleteIcon 
-          className='books__item-delete-icon' 
-          onClick={handleDelete} 
-        />
+          <DeleteIcon 
+            className='books__item-delete-icon' 
+            onClick={handleDelete} 
+          />
         </div>
       </div>
     </div>
