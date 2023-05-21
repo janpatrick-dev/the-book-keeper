@@ -21,6 +21,17 @@ const FetchUtils = {
       body: JSON.stringify(dataObj)
     });
   },
+  authorizedDeleteWithRequestData: (path, dataObj) => {
+    const accessToken = CookieUtils.getCookie('accessToken');
+    return fetch(path, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dataObj)
+    });
+  },
   // fetchNoAuthWithRequestData: (path, method, dataObj) => {
   //   return fetch(path, { 
   //     method,

@@ -14,7 +14,7 @@ export const useLogout = () => {
     setError(null);
 
     try {
-      const response = await FetchUtils.authorizedGet('/logout');
+      const response = await fetch('/logout');
       const json = await response.json();
       if (response.ok) {
         localStorage.removeItem('user');

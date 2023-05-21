@@ -1,9 +1,19 @@
-import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, Navigate } from "react-router-dom";
+import StringUtils from "../utils/StringUtils";
+import { AuthContext } from "../contexts/AuthContext";
 
 
 const Home = () => {
+  const { user } = useContext(AuthContext);
 
-  return (
+  useEffect(() => {
+    StringUtils.setPageTitle('Home');
+  }, [])
+
+  return user ? (
+    <Navigate to="/books" />
+  ) : (
     <div className="home">
       <h1 className="home__title">Welcome to The Book Keeper!</h1>
       <p className="home__description">
@@ -16,7 +26,7 @@ const Home = () => {
         <Link to='/signup' className="link home__signup-link">Sign up</Link>
       </div>
     </div>
-  )
+  );
 }
 
 export default Home;
