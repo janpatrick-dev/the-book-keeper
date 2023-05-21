@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const ErrorUtils = require('../utils/ErrorUtils');
 const jwt = require('jsonwebtoken');
 const BlacklistedToken = require('../models/BlacklistedToken');
+const validator = require('validator');
 
 const AuthController = () => {
 
@@ -40,13 +41,28 @@ const AuthController = () => {
 
   const postSignup = async (req, res) => {
     try {
-      const user = await User.create(req.body);
+      const { name, email, password } = req.body;
+
+      if (name.length <= 0) {
+        return ErrorUtils.handleError(res, 422, 'Name is required!');
+      }
+      if (email.length <= 0 || !validator.isEmail(email)) {
+        return ErrorUtils.handleError(res, 422, 'Please enter a valid email address!');
+      }
+      if (password.length <= 6) {
+        return ErrorUtils.handleError(res, 422, 'The password must be at least 6 characters long!')
+      }
+
+      const user = await User.create({ name, email, password});
       
       const accessToken = generateAccessToken(user);
       const userData = jwt.decode(accessToken);
       res.cookie('accessToken', accessToken);
       res.status(201).json(userData);
     } catch (err) {
+      if (err.code === 11000) {
+        return ErrorUtils.handleError(res, 409, 'Email already exists!');
+      }
       return ErrorUtils.handleDefaultError(res, 500);
     }
   };
@@ -60,7 +76,6 @@ const AuthController = () => {
       res.clearCookie('accessToken');
       res.status(200).json({ msg: 'Logout successful!'})
     } catch (err) {
-      console.log(err);
       return ErrorUtils.handleDefaultError(res, 500);
     }
   }

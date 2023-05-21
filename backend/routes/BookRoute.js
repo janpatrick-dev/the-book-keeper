@@ -6,5 +6,6 @@ const controller = BookController();
 
 router.get('/books', AuthenticateToken, controller.getBooks);
 router.post('/add-book', AuthenticateToken, controller.postBook);
+router.delete('/delete-book', AuthenticateToken, controller.deleteBook);
 
 module.exports = router;
