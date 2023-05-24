@@ -26,8 +26,6 @@ html {
 body { 
   background-color: var(--color-light-grey);
   margin: 0;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 }
 
 h1, h2, ul, p {
@@ -35,11 +33,58 @@ h1, h2, ul, p {
 }
 
 .App {
-  padding: 0 4rem;
+  min-height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 4rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .header {
   margin-bottom: 1rem;
+}
+
+.footer {
+  margin-bottom: 2rem;
+  align-self: center;
+  font-size: 1.2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer__social-icon {
+  width: 48px;
+  height: 48px;
+  filter: grayscale(1);
+  transition: all .4s;
+
+  &:hover {
+    filter: grayscale(0);
+    cursor: pointer;
+  }
+}
+
+.footer__social-icon--nocolor {
+  width: 48px;
+  height: 48px;
+  filter: brightness(0.5);
+  transition: all .4s;
+}
+
+.footer__social-icon--nocolor:hover {
+  filter: brightness(1);
+  cursor: pointer;
+}
+
+.footer__author:hover {
+  color: var(--color-tertiary);
+  cursor: pointer;
 }
 
 .nav {
@@ -76,7 +121,7 @@ h1, h2, ul, p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: var(--color-light-red);
+  color: var(--color-very-dark-grey);
 }
 
 .nav__test :first-child {
@@ -168,7 +213,6 @@ h1, h2, ul, p {
 }
 
 .container {
-  max-width: 1400px;
   margin: 4rem auto;
 }
 
@@ -193,7 +237,7 @@ h1, h2, ul, p {
 .home__link-container {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   gap: 1rem;
 }
 
@@ -367,7 +411,7 @@ h1, h2, ul, p {
 .books__item-details :first-child {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   gap: 0.5rem;
 }
 
