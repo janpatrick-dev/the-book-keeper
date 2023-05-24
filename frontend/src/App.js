@@ -8,7 +8,7 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Signup from './pages/Signup';
 import './styles.css';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (

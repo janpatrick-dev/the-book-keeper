@@ -11,10 +11,10 @@ const AddBookPopup = () => {
   }
 
   return (
-    <div className="add-book-popup">
+    <div className="add-book-popup hide">
       <div className="add-book-popup__container">
         <CloseIcon className='close-icon' onClick={handleClickAction} />
-        <BookAddForm addBook={addBook} isLoading={isLoading} error={error} />
+        <BookAddForm addBook={addBook} isLoading={isLoading} error={error} shouldClear={true} />
       </div>
     </div>
   )

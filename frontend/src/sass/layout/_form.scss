@@ -1,0 +1,46 @@
+.form {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2rem;
+
+  & h1 {
+    margin-bottom: 1rem;
+  }
+
+  &__btn {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+    padding: 1.25rem 2.5rem;
+    border: 0;
+    border-radius: 5rem;
+    font-size: 1.4rem;
+    color: $color-very-light-grey;
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  &__input-text {
+    padding: 1rem;
+    border: 0.1rem solid $color-very-dark-grey;
+    border-radius: 0.5rem;
+
+    &:focus {
+      outline: none;
+      border: 0.2rem solid $color-light-blue;
+    }
+  }
+}

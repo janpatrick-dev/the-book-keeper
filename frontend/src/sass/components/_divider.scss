@@ -1,12 +1,8 @@
-.hide {
-  display: none;
+.divider {
+  border-bottom: 0.1rem solid $color-very-dark-grey;
 }
 
 @media (max-width: $media-query-medium) {
-  .hide {
-    display: none !important;
-  }
-  
   .divider {
     display: none;
   }

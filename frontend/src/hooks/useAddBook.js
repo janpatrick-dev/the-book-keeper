@@ -4,12 +4,14 @@ import { BooksContext } from "../contexts/BooksContext";
 import { AuthContext } from "../contexts/AuthContext";
 import { useLogout } from "./useLogout";
 import DOMUtils from "../utils/DOMUtils";
+import { RedirectContext } from "../contexts/RedirectContext";
 
 export const useAddBook = () => {
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
   const { dispatch } = useContext(BooksContext);
   const { user } = useContext(AuthContext);
+  const { dispatch: redirectDispatch } = useContext(RedirectContext);
   const { logout } = useLogout();
 
   const addBook = async (title, author, year, imgUrl, hasRead) => {
@@ -32,6 +34,7 @@ export const useAddBook = () => {
     } else {
       if (json.error.includes('token expired')) {
         logout();
+        redirectDispatch({ type: 'SET_ERROR', payload: 'Session has expired' });
       }
       setError(json.error);
     }

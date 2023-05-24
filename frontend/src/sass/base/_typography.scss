@@ -1,7 +1,343 @@
 /**
  * Basic typography style for copy text
  */
-body {
-  color: $text-color;
-  font: normal 125% / 1.4 $text-font-stack;
+html {
+  font-family: 'Inter', sans-serif;
+  font-size: 62.5%; /* from 16px to 10px. so that 1rem = 10px */
+  color: $color-dark-grey;
+}
+
+.nav {
+
+  & a {
+    text-decoration: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: .25rem;
+  }
+
+  &__greetings {
+    font-size: 1.6rem;
+
+    & span {
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+
+  &__test {
+    font-weight: bold;
+    color: $color-very-dark-grey;
+
+    & :first-child {
+      font-size: 1.2rem;
+      text-decoration: underline;
+    }
+  }
+
+  &__item {
+    font-size: 1.4rem;
+    text-align: center;
+    color: $color-very-light-grey;
+  }
+
+  &__site-title {
+    font-size: 4rem;
+    font-weight: bold;
+    color: $color-very-dark-grey;
+  }
+}
+
+.drawer {
+
+  & a {
+    text-decoration: none;
+  }
+}
+
+.home {
+  
+  &__title {
+    font-size: 3rem;
+    color: $color-very-dark-grey;
+  }
+
+  &__description {
+    font-size: 2rem;
+  }
+
+  &__link-container {
+
+    & a {
+      width: 50%;
+      text-decoration: none;
+      text-align: center;
+    }
+  }
+}
+
+.not-found {
+
+  &__title {
+    font-size: 3rem;
+    color: $color-very-dark-grey;
+  }
+}
+
+.form {
+
+  & h1 {
+    margin-bottom: 1rem;
+    font-size: 3rem;
+    color: $color-very-dark-grey;
+  }
+  
+  &__label {
+    font-size: 1.4rem;
+  }
+
+  &__input-text {
+    font-size: 1.4rem;
+    font-family: inherit;
+  }
+
+  &__btn {
+    text-align: center;
+    font-size: 1.4rem;
+    color: $color-very-light-grey;
+  }
+}
+
+.books {
+
+  & h2 {
+    font-size: 2.5rem;
+    color: $color-very-dark-grey;
+  }
+
+  &__left-header {
+
+    & select {
+      font-size: 1.4rem;
+      font-family: inherit;
+    }
+  }
+
+  &__item--read {
+    text-decoration: line-through;
+  }
+
+  &__item-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: $color-very-dark-grey;
+  }
+
+  &__item-author {
+    font-size: 1.4rem;
+  }
+  
+  &__item-year {
+    font-size: 1.2rem;
+  }
+}
+
+.error {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: $color-light-red;
+}
+
+.icon-delete {
+  color: $color-light-red;
+
+  &:hover {
+    color: $color-light-red-hover;
+  }
+}
+
+.MuiSvgIcon-root {
+  font-size: 3rem !important;
+}
+
+.footer {
+  font-size: 1.2rem;
+}
+
+.btn {
+  text-align: center;
+  font-size: 1.4rem;
+  color: $color-very-light-grey;
+}
+
+.link {
+  text-align: center;
+  font-size: 1.4rem;
+  color: $color-very-light-grey;
+}
+
+.add-book-popup {
+  
+  & .form {
+    color: $color-light-grey;
+
+    & h2 {
+      font-size: 2.5rem;
+    }
+
+    & input[type='checkbox'] {
+      margin-left: 1rem;
+    }
+  }
+}
+
+@media (max-width: $media-query-medium) {
+  .books {
+
+    & h2 {
+      font-size: 2.5rem;
+      color: $color-very-dark-grey;
+    }
+  }
+
+  .nav {
+
+    &__site-title {
+      font-size: 2.5rem;
+    }
+  }
+
+  .form {
+
+    & h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .home {
+    text-align: center;
+
+    &__title {
+      font-size: 2.5rem;
+      color: $color-very-dark-grey;
+    }
+
+    &__description {
+      font-size: 1.8rem;
+    }
+        
+    &__link-container a {
+      text-decoration: none;
+      text-align: center;
+    }
+  }
+
+  .not-found {
+
+    &__title {
+      font-size: 2.5rem;
+      color: $color-very-dark-grey;
+    }
+  }
+  
+  .drawer {
+
+    &__greetings {
+      font-size: 1.6rem;
+      color: $color-very-light-grey;
+
+      & span {
+        font-weight: bold;
+      }
+    }
+
+    &__test {
+      font-size: 1.2rem;
+      color: $color-light-grey;
+      text-align: center;
+
+      & p:first-child {
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+    }
+
+    &__authorized {
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: $media-query-small) {
+  .books {
+
+    & h2 {
+      font-size: 1.6rem;
+      color: $color-very-dark-grey;
+    }
+
+    &__item-title {
+      font-size: 1.4rem;
+    }
+  }
+
+  .nav {
+    
+    &__site-title {
+      font-size: 2.4rem;
+    }
+  }
+
+  .form {
+
+    & h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .home {
+
+    &__title {
+      font-size: 2rem;
+      color: $color-very-dark-grey;
+    }
+
+    &__description {
+      font-size: 1.8rem;
+    }
+  }
+
+  .not-found {
+
+    &__title {
+      font-size: 2rem;
+      color: $color-very-dark-grey;
+    }
+  }
+
+  .drawer {
+
+    &__header {
+      margin-top: 2rem;
+    }
+
+    &__greetings {
+      font-size: 1.6rem;
+      color: $color-very-light-grey;
+    }
+
+    &__test {
+      font-size: 1.2rem;
+      color: $color-light-grey;
+      text-align: center;
+
+      & p:first-child {
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+    }
+  }
 }

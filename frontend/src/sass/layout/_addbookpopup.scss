@@ -1,0 +1,30 @@
+.add-book-popup {
+  display: none;
+}
+
+@media (max-width: $media-query-medium) {
+  .add-book-popup {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    z-index: 1;
+
+    & input[type='checkbox'] {
+      transform: scale(2);
+    }
+
+    & .close-icon {
+      position: absolute;
+      top: 3rem;
+      right: 3rem;
+    }
+  }
+}

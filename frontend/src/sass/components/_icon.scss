@@ -1,0 +1,11 @@
+.MuiSvgIcon-root {
+  cursor: pointer;
+}
+
+@media (max-width: $media-query-medium) {
+  .close-icon {
+    margin: 1rem;
+    position: absolute;
+    right: 0;
+  }
+}

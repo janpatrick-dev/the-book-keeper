@@ -20,15 +20,25 @@
 // 4. Layout-related sections
 @import
   'layout/header',
-  'layout/footer';
+  'layout/footer',
+  'layout/addbookpopup',
+  'layout/drawer',
+  'layout/form',
+  'layout/navigation';
 
 // 5. Components
 @import
-  'components/button';
+  'components/button',
+  'components/icon',
+  'components/link',
+  'components/divider';
 
 // 6. Page-specific styles
 @import
-  'pages/home';
+  'pages/home',
+  'pages/books',
+  'pages/login',
+  'pages/signup';
 
 // 7. Themes
 @import

@@ -21,15 +21,27 @@ html {
   box-sizing: inherit;
 }
 
-/**
- * Basic styles for links
- */
-a {
-  color: $brand-color;
-  text-decoration: none;
+body { 
+  background-color: $color-light-grey;
+  margin: 0;
+}
 
-  @include on-event {
-    color: $text-color;
-    text-decoration: underline;
-  }
+h1, h2, ul, p {
+  margin: 0;
+}
+
+.App {
+  position: relative;
+  min-height: 100vh;
+  max-width: 140rem;
+  margin: 0 auto;
+  padding: 1rem 4rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container {
+  margin: 4rem auto;
 }
