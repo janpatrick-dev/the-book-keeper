@@ -11,13 +11,14 @@ import useDeleteBook from "../hooks/useDeleteBook";
 import useAddBook from "../hooks/useAddBook";
 import LoadingProgress from "../components/LoadingProgress";
 import { RedirectContext } from "../contexts/RedirectContext";
+import DOMUtils from "../utils/DOMUtils";
 
 
 const Books = () => {
   const { user } = useContext(AuthContext);
   const { books, dispatch: booksDispatch } = useContext(BooksContext);
   const { error: redirectError, dispatch: redirectDispatch } = useContext(RedirectContext);
-  const { addBook, isLoading: addBookLoading } = useAddBook();
+  const { addBook, isLoading: addBookLoading, error: addBookError } = useAddBook();
   const { deleteBook, isLoading: deleteBookLoading } = useDeleteBook();
   const { logout } = useLogout();
   const [filterBy, setFilterBy] = useState('date-created');
@@ -56,11 +57,16 @@ const Books = () => {
     StringUtils.setPageTitle('Books');
   }, [deleteBookLoading, filterBy]);
 
+  const handleFloatingAddBookClick = (e) => {
+    DOMUtils.showAddBookPopup();
+    DOMUtils.hideDrawer();
+  }
+
   return user ? (
     <div className="books">
       <div className="books__left">
         <div className="books__left-header">
-          <h2>Your Collection</h2>
+          <h2>My Books</h2>
           <select onChange={(e) => setFilterBy(e.target.value)}>
             <option value="date-created">Sort by Date Created</option>
             <option value="title">Sort by Title</option>
@@ -81,7 +87,12 @@ const Books = () => {
         }
       </div>
       <div className="books__right">
-        <BookAddForm addBook={addBook} isLoading={addBookLoading} />
+        <BookAddForm addBook={addBook} isLoading={addBookLoading} error={addBookError} />
+      </div>
+      <div className="books__floating">
+        <button className="btn btn-add-book btn-add-book-floating" onClick={handleFloatingAddBookClick}>
+          Add New Book
+        </button>
       </div>
     </div>
   ) : (

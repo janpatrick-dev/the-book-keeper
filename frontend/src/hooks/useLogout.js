@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import { AuthContext } from "../contexts/AuthContext"
 import { BooksContext } from "../contexts/BooksContext";
 import FetchUtils from "../utils/FetchUtils";
+import DOMUtils from "../utils/DOMUtils";
 
 export const useLogout = () => {
   const { dispatch: authDispatch } = useContext(AuthContext);
@@ -12,6 +13,8 @@ export const useLogout = () => {
   const logout = async () => {
     setLoading(true);
     setError(null);
+    DOMUtils.hideDrawer();
+    DOMUtils.hideAddBookPopup();
 
     try {
       const response = await fetch('/logout');

@@ -1,5 +1,6 @@
 import { useContext, useState } from "react"
 import { AuthContext } from "../contexts/AuthContext";
+import DOMUtils from "../utils/DOMUtils";
 
 export const useSignup = () => {
   const [error, setError] = useState(null);
@@ -9,6 +10,7 @@ export const useSignup = () => {
   const signup = async (name, email, password) => {
     setIsLoading(true);
     setError(null);
+    DOMUtils.hideDrawer();
 
     const response = await fetch('/signup', {
       method: 'POST',

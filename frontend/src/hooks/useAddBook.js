@@ -3,6 +3,7 @@ import FetchUtils from "../utils/FetchUtils"
 import { BooksContext } from "../contexts/BooksContext";
 import { AuthContext } from "../contexts/AuthContext";
 import { useLogout } from "./useLogout";
+import DOMUtils from "../utils/DOMUtils";
 
 export const useAddBook = () => {
   const [isLoading, setIsLoading] = useState(null);
@@ -27,6 +28,7 @@ export const useAddBook = () => {
     const json = await response.json();
     if (response.ok) {
       dispatch({ type: 'ADD_BOOK', payload: json});
+      DOMUtils.hideAddBookPopup();
     } else {
       if (json.error.includes('token expired')) {
         logout();

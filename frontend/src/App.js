@@ -1,3 +1,5 @@
+import AddBookPopup from './components/partials/AddBookPopup';
+import Drawer from './components/partials/Drawer';
 import Footer from './components/partials/Footer';
 import Header from './components/partials/Header';
 import Books from './pages/Books';
@@ -13,6 +15,8 @@ function App() {
     <div className="App">
       <div>
         <Header />
+        <Drawer />
+        <AddBookPopup />
         <div className='container'>
           <Routes>
             <Route path='/' element={<Home />} />

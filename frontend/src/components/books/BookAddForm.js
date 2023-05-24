@@ -5,7 +5,7 @@ import FormError from "../form/FormError";
 import LoadingProgress from "../LoadingProgress";
 import FormRowCheckbox from "../form/FormRowCheckbox";
 
-const BookAddForm = ({ addBook, isLoading }) => {
+const BookAddForm = ({ addBook, isLoading, error }) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [imgUrl, setImgUrl] = useState('');
@@ -28,6 +28,7 @@ const BookAddForm = ({ addBook, isLoading }) => {
     setAuthor('');
     setImgUrl('');
     setYear(2023);
+    setHasRead(false);
   }
 
   return (
@@ -74,9 +75,9 @@ const BookAddForm = ({ addBook, isLoading }) => {
         <FormButton 
           disabled={isLoading} 
           label='Add Book'
-          className='form__btn-add-book'  />
-        {/* <FormError error={error || redirectError} /> */}
-        {/* <LoadingProgress isLoading={isLoading} /> */}
+          className='btn-add-book'  />
+        <FormError error={error} />
+        <LoadingProgress isLoading={isLoading} />
       </form>
     </div>
   )

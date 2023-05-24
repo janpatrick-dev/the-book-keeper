@@ -23,7 +23,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     await login(email, password);
     if (redirectError) {
       dispatch({ type: 'REMOVE_ERROR' });
@@ -43,6 +43,7 @@ const Login = () => {
           value={email}
           name='email'
           onChange={(e) => setEmail(e.target.value)}
+          required={true}
         />
         <FormRowInputText
           type='password'
@@ -50,11 +51,12 @@ const Login = () => {
           value={password}
           name='password'
           onChange={(e) => setPassword(e.target.value)}
+          required={true}
         />
         <FormButton 
           disabled={isLoading} 
           label='Log in'
-          className='form__btn-login'  />
+          className='btn-login'  />
         <FormError error={error || redirectError} />
         <LoadingProgress isLoading={isLoading} />
       </form>
