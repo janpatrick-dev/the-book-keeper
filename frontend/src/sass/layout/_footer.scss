@@ -1,0 +1,41 @@
+.footer {
+  margin-bottom: 2rem;
+  align-self: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__social-icon {
+    width: 48px;
+    height: 48px;
+    filter: grayscale(1);
+    transition: all .4s;
+
+    &:hover {
+      filter: grayscale(0);
+      cursor: pointer;
+    }
+  }
+
+  &__social-icon--nocolor {
+    width: 48px;
+    height: 48px;
+    filter: brightness(0.5);
+    transition: all .4s;
+
+    &:hover {
+      filter: brightness(1);
+      cursor: pointer;
+    }
+  }
+
+  &__author {
+
+    &:hover {
+      color: $color-light-blue-hover;
+      cursor: pointer;
+    }
+  }
+}

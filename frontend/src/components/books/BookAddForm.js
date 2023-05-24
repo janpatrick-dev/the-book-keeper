@@ -1,16 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormRowInputText from "../form/FormRowInputText";
 import FormButton from "../form/FormButton";
 import FormError from "../form/FormError";
 import LoadingProgress from "../LoadingProgress";
 import FormRowCheckbox from "../form/FormRowCheckbox";
 
-const BookAddForm = ({ addBook, isLoading }) => {
+const BookAddForm = ({ addBook, isLoading, error, shouldClear }) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [imgUrl, setImgUrl] = useState('');
   const [year, setYear] = useState(2023);
   const [hasRead, setHasRead] = useState(false);
+  const [err, setErr] = useState(error || '');
+
+  // used to clear errors on form
+  const [clear, setClear] = useState(shouldClear || false);
+
+  useEffect(() => {
+    if (clear) {
+      setClear(false);
+      setErr('');
+    }
+  }, [clear]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +39,7 @@ const BookAddForm = ({ addBook, isLoading }) => {
     setAuthor('');
     setImgUrl('');
     setYear(2023);
+    setHasRead(false);
   }
 
   return (
@@ -74,9 +86,9 @@ const BookAddForm = ({ addBook, isLoading }) => {
         <FormButton 
           disabled={isLoading} 
           label='Add Book'
-          className='form__btn-add-book'  />
-        {/* <FormError error={error || redirectError} /> */}
-        {/* <LoadingProgress isLoading={isLoading} /> */}
+          className='btn-add-book'  />
+        <FormError error={err} />
+        <LoadingProgress isLoading={isLoading} />
       </form>
     </div>
   )

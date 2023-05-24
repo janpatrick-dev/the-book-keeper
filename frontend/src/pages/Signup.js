@@ -53,7 +53,7 @@ const Signup = () => {
           name='password'
           onChange={(e) => setPassword(e.target.value)}
         />
-        <FormButton disabled={isLoading} label='Sign up' className='form__btn-signup' />
+        <FormButton disabled={isLoading} label='Sign up' className='btn-signup' />
         <FormError error={error} />
         <LoadingProgress isLoading={isLoading} />
       </form>

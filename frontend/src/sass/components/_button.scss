@@ -1,0 +1,91 @@
+.btn,
+.form__btn {
+  width: 100%;
+  padding: 1.25rem 2.5rem;
+  border: 0;
+  border-radius: 5rem;
+}
+
+.btn-login {
+  background-color: $color-light-blue;
+  
+  &:hover {
+    background-color: $color-light-blue-hover;
+  }
+
+  &:active {
+    background-color: $color-light-blue;
+  }
+
+  &:disabled {
+    background-color: $color-dark-grey;
+    cursor: not-allowed;
+  }
+}
+
+.btn-add-book {
+  background-color: $color-light-blue;
+  
+  &:hover {
+    background-color: $color-light-blue-hover;
+  }
+
+  &:active {
+    background-color: $color-light-blue;
+  }
+
+  &:disabled {
+    background-color: $color-dark-grey;
+    cursor: not-allowed;
+  }
+}
+
+.btn-signup {
+  background-color: $color-light-green;
+
+  &:hover {
+    background-color: $color-light-green-hover;
+  }
+
+  &:active {
+    background-color: $color-light-green;
+  }
+
+  &:disabled {
+    background-color: $color-dark-grey;
+    cursor: not-allowed;
+  }
+}
+
+.home {
+
+  &__login-link,
+  &__signup-link {
+    background-color: $color-dark-grey;
+    cursor: not-allowed;
+  }
+}
+
+.btn-logout {
+  background-color: $color-light-red;
+
+  &:hover {
+    background-color: $color-light-red-hover;
+  }
+}
+
+.form__btn {
+  cursor: pointer;
+}
+
+.btn-add-book-floating {
+  display: none;
+}
+
+@media (max-width: $media-query-medium) {
+  .btn-add-book-floating {
+    display: block;
+    box-shadow: 0 0.5rem 0.5rem $color-dark-grey;
+    cursor: pointer;
+  }
+}

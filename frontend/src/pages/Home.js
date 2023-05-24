@@ -22,8 +22,8 @@ const Home = () => {
         Perfect for casual readers or dedicated bibliophiles. Try it now!
       </p>
       <div className="home__link-container">
-        <Link to='/login' className="link home__login-link">Log in</Link>
-        <Link to='/signup' className="link home__signup-link">Sign up</Link>
+        <Link to='/login' className="link btn-login">Log in</Link>
+        <Link to='/signup' className="link btn-signup">Sign up</Link>
       </div>
     </div>
   );

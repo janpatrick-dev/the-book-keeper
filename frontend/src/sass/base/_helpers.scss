@@ -1,0 +1,13 @@
+.hide {
+  display: none;
+}
+
+@media (max-width: $media-query-medium) {
+  .hide {
+    display: none !important;
+  }
+  
+  .divider {
+    display: none;
+  }
+}
