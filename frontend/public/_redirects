@@ -1,0 +1,6 @@
+# Redirects from what the browser requests to what we serve
+/                /index.html    200
+/login           /index.html    200
+/signup          /index.html    200
+/books           /index.html    200
+/update-book/:id /index.html    200
