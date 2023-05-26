@@ -454,6 +454,12 @@ html {
 .books__item-year {
   font-size: 1.2rem;
 }
+.books__item-actions a {
+  color: hsl(0, 0%, 40%);
+}
+.books__item-actions svg:hover {
+  color: hsl(0, 0%, 27%);
+}
 
 .error {
   font-size: 1.6rem;
@@ -500,8 +506,11 @@ html {
 
 @media (max-width: 900px) {
   .books h2 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: hsl(0, 0%, 27%);
+  }
+  .books__item-title {
+    font-size: 1.6rem;
   }
   .nav__site-title {
     font-size: 2.5rem;
@@ -593,6 +602,10 @@ html {
 }
 .hide {
   display: none;
+}
+
+.hide-side {
+  transform: translateX(100%);
 }
 
 @media (max-width: 900px) {
@@ -696,6 +709,7 @@ html {
     top: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.95);
+    transition: all 0.2s;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -773,12 +787,12 @@ html {
 }
 .form__input-text {
   padding: 1rem;
-  border: 0.1rem solid hsl(0, 0%, 27%);
+  border: 1px solid hsl(0, 0%, 27%);
   border-radius: 0.5rem;
 }
 .form__input-text:focus {
   outline: none;
-  border: 0.2rem solid hsl(220, 89%, 64%);
+  border: 2px solid hsl(220, 89%, 64%);
 }
 
 .nav {
@@ -884,16 +898,20 @@ html {
   cursor: not-allowed;
 }
 
-.btn-signup {
+.btn-signup,
+.btn-update-book {
   background-color: hsl(122, 63%, 47%);
 }
-.btn-signup:hover {
+.btn-signup:hover,
+.btn-update-book:hover {
   background-color: hsl(122, 63%, 40%);
 }
-.btn-signup:active {
+.btn-signup:active,
+.btn-update-book:active {
   background-color: hsl(122, 63%, 47%);
 }
-.btn-signup:disabled {
+.btn-signup:disabled,
+.btn-update-book:disabled {
   background-color: hsl(0, 0%, 40%);
   cursor: not-allowed;
 }
@@ -952,6 +970,59 @@ html {
     display: none;
   }
 }
+.books__item {
+  min-height: 10rem;
+  border: 2px solid hsl(0, 0%, 27%);
+  border-radius: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  overflow: hidden;
+}
+.books__item-img {
+  height: auto;
+  min-width: 100px;
+  min-height: 150px;
+  max-height: 150px;
+}
+.books__item-left {
+  background-color: hsl(0, 0%, 40%);
+  min-width: 100px;
+  min-height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.books__item-right {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+.books__item-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.books__item-details :first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.books__item-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.books__item-check-icon.active {
+  color: hsl(122, 63%, 47%);
+}
+.books__item-check-icon.active:hover {
+  color: hsl(122, 63%, 40%);
+}
+.books__item-delete-icon {
+  grid-column: -1;
+}
+
 .home {
   max-width: 60%;
   display: flex;
@@ -1023,49 +1094,12 @@ html {
   grid-template-rows: repeat(3, 1fr);
   gap: 1rem;
 }
-.books__add {
+.books__add, .books__update {
   width: 100%;
 }
-.books__item {
-  min-height: 10rem;
-  border: 0.1rem solid hsl(0, 0%, 40%);
-  border-radius: 1rem;
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  overflow: hidden;
-}
-.books__item-img {
-  height: auto;
-  min-width: 100px;
-  min-height: 150px;
-  max-height: 150px;
-}
-.books__item-left {
-  background-color: hsl(0, 0%, 40%);
-  min-width: 100px;
-  min-height: 150px;
+.books__update {
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-.books__item-right {
-  padding: 1rem;
-  display: grid;
-  grid-template-columns: 1fr auto;
-}
-.books__item-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.books__item-details :first-child {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-.books__item-delete-icon {
-  grid-column: -1;
 }
 
 @media (max-width: 900px) {

@@ -1,0 +1,66 @@
+.books__item {
+  min-height: 10rem;
+  border: 2px solid $color-very-dark-grey;
+  border-radius: 1rem;
+
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  overflow: hidden;
+
+  &-img {
+    height: auto;
+    min-width: 100px;
+    min-height: 150px;
+    max-height: 150px;
+  }
+
+  &-left {
+    background-color: $color-dark-grey;
+    min-width: 100px;
+    min-height: 150px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &-right {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  &-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    & :first-child {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+
+  &-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &-check-icon {
+    
+    &.active {
+      color: $color-light-green;
+
+      &:hover {
+        color: $color-light-green-hover;
+      }
+    }
+  }
+
+  &-delete-icon {
+    grid-column: -1;
+  }
+}

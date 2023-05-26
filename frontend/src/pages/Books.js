@@ -1,47 +1,52 @@
 import { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+
 import { AuthContext } from "../contexts/AuthContext";
-import { useLogout } from "../hooks/useLogout";
 import { BooksContext } from "../contexts/BooksContext";
-import FetchUtils from "../utils/FetchUtils";
+import { RedirectContext } from "../contexts/RedirectContext";
+
+import { useBook } from "../hooks/useBook";
+import { useLogout } from "../hooks/useLogout";
+
 import BookAddForm from "../components/books/BookAddForm";
 import Book from "../components/books/Book";
-import StringUtils from "../utils/StringUtils";
-import useDeleteBook from "../hooks/useDeleteBook";
-import useAddBook from "../hooks/useAddBook";
 import LoadingProgress from "../components/LoadingProgress";
-import { RedirectContext } from "../contexts/RedirectContext";
+
+import FetchUtils from "../utils/FetchUtils";
+import StringUtils from "../utils/StringUtils";
 import DOMUtils from "../utils/DOMUtils";
 
 
 const Books = () => {
+  const [filterBy, setFilterBy] = useState("date-created");
+  const [isBooksLoading, setIsBooksLoading] = useState(false);
   const { user } = useContext(AuthContext);
   const { books, dispatch: booksDispatch } = useContext(BooksContext);
-  const { error: redirectError, dispatch: redirectDispatch } = useContext(RedirectContext);
-  const { addBook, isLoading: addBookLoading, error: addBookError } = useAddBook();
-  const { deleteBook, isLoading: deleteBookLoading } = useDeleteBook();
-  const { logout } = useLogout();
-  const [filterBy, setFilterBy] = useState('date-created');
-  const [isBooksLoading, setIsBooksLoading] = useState(false);
-  const isLoading = addBookLoading || deleteBookLoading || isBooksLoading;
+  const { error: redirectError, dispatch: redirectDispatch } =
+    useContext(RedirectContext);
+  const { sessionLogout } = useLogout();
+  const bookHook = useBook();
+  const fetchLoading = bookHook.addLoading || bookHook.updateLoading || bookHook.deleteLoading;
+  const isAnyLoading = isBooksLoading || fetchLoading;
 
   useEffect(() => {
     const setBooks = (books) => {
-      booksDispatch({ type: 'SET_BOOKS', payload: books });
-    }
+      booksDispatch({ type: "SET_BOOKS", payload: books });
+    };
 
     const fetchBooks = async () => {
       setIsBooksLoading(true);
-      redirectDispatch({ type: 'REMOVE_ERROR' });
+      redirectDispatch({ type: "REMOVE_ERROR" });
 
       try {
-        const response = await FetchUtils.authorizedGet(`/books?filterBy=${filterBy}`);
+        const response = await FetchUtils.authorizedGet(
+          `/books?filterBy=${filterBy}`
+        );
         const json = await response.json();
         if (response.ok) {
           setBooks(json);
         } else if (response.status === 401) {
-          logout();
-          redirectDispatch({ type: 'SET_ERROR', payload: 'Session has expired' });
+          sessionLogout(json.error);
           setBooks([]);
         } else {
           setBooks([]);
@@ -51,18 +56,22 @@ const Books = () => {
         setIsBooksLoading(false);
         setBooks([]);
       }
-    }
-    
+    };
+
     fetchBooks();
-    StringUtils.setPageTitle('Books');
-  }, [deleteBookLoading, filterBy]);
+    StringUtils.setPageTitle("Books");
+  }, [fetchLoading, filterBy]);
 
   const handleFloatingAddBookClick = (e) => {
     DOMUtils.showAddBookPopup();
     DOMUtils.hideDrawer();
+  };
+
+  if (!user) {
+    return <Navigate to="/login" />;
   }
 
-  return user ? (
+  return (
     <div className="books">
       <div className="books__left">
         <div className="books__left-header">
@@ -72,32 +81,35 @@ const Books = () => {
             <option value="title">Sort by Title</option>
             <option value="author">Sort by Author Name</option>
             <option value="year-published">Sort by Year Published</option>
+            <option value="read-status">Sort by Read Status</option>
           </select>
         </div>
-        {
-          isLoading ? (
-            <LoadingProgress isLoading={isLoading} />
-          ) : (
-            <div className="books__list">
-              {books.map((book) => (
-                <Book key={book._id} book={book} deleteBook={deleteBook} />
-              ))}
-            </div>
-          )
-        }
+        {isAnyLoading ? (
+          <LoadingProgress isLoading={isAnyLoading} />
+        ) : (
+          <div className="books__list">
+            {books.map((book) => (
+              <Book key={book._id} book={book} hook={bookHook} />
+            ))}
+          </div>
+        )}
       </div>
       <div className="books__right">
-        <BookAddForm addBook={addBook} isLoading={addBookLoading} error={addBookError} />
+        <BookAddForm
+          hook={bookHook}
+        />
       </div>
       <div className="books__floating">
-        <button className="btn btn-add-book btn-add-book-floating" onClick={handleFloatingAddBookClick}>
+        <button
+          className="btn btn-add-book btn-add-book-floating"
+          onClick={handleFloatingAddBookClick}
+          disabled={isAnyLoading}
+        >
           Add New Book
         </button>
       </div>
     </div>
-  ) : (
-    <Navigate to='/login' />
-  )
-}
+  );
+};
 
 export default Books;

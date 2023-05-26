@@ -1,19 +1,26 @@
 import DeleteIcon from '@mui/icons-material/Delete';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
-import { useContext } from 'react';
-import { BooksContext } from '../../contexts/BooksContext';
-import useDeleteBook from '../../hooks/useDeleteBook';
+import DOMUtils from '../../utils/DOMUtils';
+import { Link } from 'react-router-dom';
 
-const Book = ({ book, deleteBook }) => {
-  const { dispatch } = useContext(BooksContext);
-  const { 
-    title, 
-    author, 
+const Book = ({ book, hook }) => {
+  const { updateBook, deleteBook, message, isLoading, error } = hook;
+  const {
+    _id,
+    userId,
+    title,
+    author,
     yearPublished,
     hasRead,
     imgUrl,
-    createdAt
+    createdAt,
   } = book;
+  
+  const handleUpdateReadStatus = async (e) => {
+    await updateBook(book, { hasRead: !hasRead })
+  }
 
   const handleDelete = async (e) => {
     await deleteBook(book);
@@ -36,9 +43,21 @@ const Book = ({ book, deleteBook }) => {
           <p className='books__item-created'>{moment(createdAt).fromNow()}</p>
         </div>
         <div className='books__item-actions'>
+          <CheckBoxIcon
+            className={`books__item-check-icon ${hasRead && 'active'}`}
+            onClick={handleUpdateReadStatus}
+            titleAccess={`Mark as ${hasRead ? 'unread' : 'read'}`} 
+          />
+          <Link to={`/update-book/${_id}`}>
+            <EditIcon
+              className='books__item-edit-icon'
+              titleAccess='Edit this book' 
+            />
+          </Link>
           <DeleteIcon 
             className='books__item-delete-icon' 
             onClick={handleDelete} 
+            titleAccess='Delete this book'
           />
         </div>
       </div>

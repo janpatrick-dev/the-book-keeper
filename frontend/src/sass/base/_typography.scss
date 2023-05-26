@@ -141,6 +141,20 @@ html {
   &__item-year {
     font-size: 1.2rem;
   }
+
+  &__item-actions {
+    
+    & a {
+      color: $color-dark-grey;
+    }
+
+    & svg {
+
+      &:hover {
+        color: $color-very-dark-grey;
+      }
+    }
+  }
 }
 
 .error {
@@ -196,8 +210,12 @@ html {
   .books {
 
     & h2 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       color: $color-very-dark-grey;
+    }
+
+    &__item-title {
+      font-size: 1.6rem;
     }
   }
 

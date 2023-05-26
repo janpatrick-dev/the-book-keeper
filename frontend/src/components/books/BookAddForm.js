@@ -5,7 +5,12 @@ import FormError from "../form/FormError";
 import LoadingProgress from "../LoadingProgress";
 import FormRowCheckbox from "../form/FormRowCheckbox";
 
-const BookAddForm = ({ addBook, isLoading, error, shouldClear }) => {
+const BookAddForm = ({ hook, shouldClear }) => {
+  const {
+    addBook,
+    error,
+    addLoading
+  } = hook;
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [imgUrl, setImgUrl] = useState('');
@@ -25,7 +30,13 @@ const BookAddForm = ({ addBook, isLoading, error, shouldClear }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addBook(title, author, year, imgUrl, hasRead);
+    await addBook({
+      title, 
+      author, 
+      imgUrl, 
+      hasRead,
+      yearPublished: year
+    });
     resetForm();
   }
 
@@ -84,11 +95,11 @@ const BookAddForm = ({ addBook, isLoading, error, shouldClear }) => {
           onChange={(e) => setHasRead(e.target.checked)}
         />
         <FormButton 
-          disabled={isLoading} 
+          disabled={addLoading} 
           label='Add Book'
           className='btn-add-book'  />
         <FormError error={err} />
-        <LoadingProgress isLoading={isLoading} />
+        <LoadingProgress isLoading={addLoading} />
       </form>
     </div>
   )

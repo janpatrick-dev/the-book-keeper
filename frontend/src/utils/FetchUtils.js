@@ -21,6 +21,17 @@ const FetchUtils = {
       body: JSON.stringify(dataObj)
     });
   },
+  authorizedUpdateWithRequestData: (path, dataObj) => {
+    const accessToken = CookieUtils.getCookie('accessToken');
+    return fetch(path, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dataObj)
+    });
+  },
   authorizedDeleteWithRequestData: (path, dataObj) => {
     const accessToken = CookieUtils.getCookie('accessToken');
     return fetch(path, {

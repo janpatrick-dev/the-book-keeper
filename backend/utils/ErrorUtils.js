@@ -5,7 +5,7 @@ const ErrorUtils = {
   handleDefaultError: (res, statusCode) => {
     const defaultErrors = {
       401: 'Unauthorized access',
-      403: 'Bad request',
+      403: 'Forbidden',
       500: 'Internal server error',
     };
     const errorMsg = defaultErrors[statusCode] || 'Unknown error';
