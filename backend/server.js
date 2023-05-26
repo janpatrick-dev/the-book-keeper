@@ -12,7 +12,7 @@ const app = express();
 app.use(cors({
   origin: 'https://the-book-keeper.netlify.app',
   credentials: true,
-  allowedHeaders: ['Authorization']
+  allowedHeaders: ['Authorization', 'Content-Type']
 }));
 app.use(express.static('public'));
 app.use(express.json());
