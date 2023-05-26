@@ -1,9 +1,22 @@
 import CookieUtils from "./CookieUtils";
+import ApiUtils from "./ApiUtils";
 
 const FetchUtils = {
+  get: (path) => {
+    return fetch(ApiUtils.getServerUrl(path));
+  },
+  post: (path, dataObj) => {
+    return fetch(ApiUtils.getServerUrl(path), {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataObj)
+    });
+  },
   authorizedGet: (path) => {
     const accessToken = CookieUtils.getCookie('accessToken');
-    return fetch(path, {
+    return fetch(ApiUtils.getServerUrl(path), {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
@@ -12,7 +25,7 @@ const FetchUtils = {
   },
   authorizedPostWithRequestData: (path, dataObj) => {
     const accessToken = CookieUtils.getCookie('accessToken');
-    return fetch(path, {
+    return fetch(ApiUtils.getServerUrl(path), {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
@@ -23,7 +36,7 @@ const FetchUtils = {
   },
   authorizedUpdateWithRequestData: (path, dataObj) => {
     const accessToken = CookieUtils.getCookie('accessToken');
-    return fetch(path, {
+    return fetch(ApiUtils.getServerUrl(path), {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
@@ -34,7 +47,7 @@ const FetchUtils = {
   },
   authorizedDeleteWithRequestData: (path, dataObj) => {
     const accessToken = CookieUtils.getCookie('accessToken');
-    return fetch(path, {
+    return fetch(ApiUtils.getServerUrl(path), {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
