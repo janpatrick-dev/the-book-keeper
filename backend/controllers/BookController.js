@@ -13,6 +13,20 @@ const BookController = () => {
     }
   };
 
+  const getBook = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = req.user;
+      const book = await Book.findOne({ _id: id });
+      if (user._id !== book.userId) {
+        return ErrorUtils.handleDefaultError(res, 403);
+      }
+      res.status(200).json(book);
+    } catch (err) {
+      return ErrorUtils.handleDefaultError(res, 500);
+    }
+  };
+
   const getSortQuery = (filterBy) => {
     switch (filterBy) {
       case 'title':
@@ -21,6 +35,8 @@ const BookController = () => {
         return { author: 1 };
       case 'year-published':
         return { yearPublished: -1 };
+      case 'read-status':
+        return { hasRead: 1 };
       case 'date-created':
       default:
         return { createdAt: -1 };
@@ -32,11 +48,26 @@ const BookController = () => {
       const user = req.user;
       req.body.userId = user._id;
       const book = await Book.create(req.body);
-      res.status(201).json(book);
+      res.status(201).json({ book, msg: `Added ${book.title} successfully!` });
     } catch (err) {
       return ErrorUtils.handleDefaultError(res, 500);
     }
   };
+
+  const updateBook = async (req, res) => {
+    try {
+      const bookIdParam = req.params.id;
+      const user = req.user;
+      const { bookOwnerId, updatedBook } = req.body;
+      if (bookOwnerId !== user._id) {
+        return ErrorUtils.handleDefaultError(res, 403);
+      }
+      const book = await Book.updateOne({ _id: bookIdParam }, { $set: updatedBook });
+      res.status(200).json({ msg: `Updated ${book.title} successfully!`});
+    } catch (err) {
+      return ErrorUtils.handleDefaultError(res, 500);
+    }
+  }
 
   const deleteBook = async (req, res) => {
     try {
@@ -46,17 +77,18 @@ const BookController = () => {
         return ErrorUtils.handleDefaultError(res, 401);
       }
       await Book.deleteOne({ _id: book._id });
-      res.status(200).json({ msg: 'Deleted successfully' });
+      res.status(200).json({ msg: `Deleted ${book.title} successfully` });
     } catch (err) {
-      console.log(err.message);
       return ErrorUtils.handleDefaultError(res, 500);
     }
   }
 
   return {
     getBooks,
+    getBook,
     postBook,
-    deleteBook
+    deleteBook,
+    updateBook
   }
 };
 
