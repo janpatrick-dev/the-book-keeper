@@ -15,7 +15,7 @@ const authReducer = (state, action) => {
 
       if (!userLocal) {
         LocalStorageUtils.set('user', JSON.stringify(action.payload));
-        return { user: action.payload.user };
+        return { user: action.payload };
       }
 
       return { user: JSON.parse(userLocal) };
