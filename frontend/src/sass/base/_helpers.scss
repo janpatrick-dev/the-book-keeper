@@ -2,6 +2,10 @@
   display: none;
 }
 
+.hide-side {
+  transform: translateX(100%);
+}
+
 @media (max-width: $media-query-medium) {
   .hide {
     display: none !important;

@@ -18,7 +18,7 @@ const Drawer = () => {
   }
 
   return (
-    <div className='drawer hide'>
+    <div className='drawer hide-side'>
       <CloseIcon className='close-icon' onClick={handleClickAction} />
       <div className='drawer__header'>
         { 

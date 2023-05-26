@@ -1,5 +1,5 @@
 const FormRowCheckbox = (props) => {
-  const { label, name, value, onChange } = props;
+  const { label, name, value, onChange, checked } = props;
 
   return (
     <div className='form__row-checkbox'>
@@ -8,6 +8,7 @@ const FormRowCheckbox = (props) => {
         name={name}
         value={value}
         onChange={onChange}
+        checked={checked}
       />
       <label htmlFor={name} className="form__label">{label}</label>
     </div>

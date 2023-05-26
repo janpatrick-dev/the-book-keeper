@@ -1,18 +1,22 @@
 const DOMUtils = {
   showDrawer: () => {
     const drawerElement = document.querySelector('.drawer');
-    drawerElement.classList.remove('hide');
+    if (drawerElement === null) { return; }
+    drawerElement.classList.remove('hide-side');
   },
   hideDrawer: () => {
     const drawerElement = document.querySelector('.drawer');
-    drawerElement.classList.add('hide');
+    if (drawerElement === null) { return; }
+    drawerElement.classList.add('hide-side');
   },
   showAddBookPopup: () => {
     const addBookPopupElement = document.querySelector('.add-book-popup');
+    if (addBookPopupElement === null) { return; }
     addBookPopupElement.classList.remove('hide');
   },
   hideAddBookPopup: () => {
     const addBookPopupElement = document.querySelector('.add-book-popup');
+    if (addBookPopupElement === null) { return; }
     addBookPopupElement.classList.add('hide');
   }
 }

@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Signup from './pages/Signup';
+import UpdateBook from './pages/UpdateBook';
 import './styles.css';
 import { Routes, Route } from 'react-router-dom';
 
@@ -23,6 +24,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/books' element={<Books />} />
+            <Route path='/update-book/:id' element={<UpdateBook />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </div>

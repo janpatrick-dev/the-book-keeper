@@ -35,12 +35,12 @@
 
   &__input-text {
     padding: 1rem;
-    border: 0.1rem solid $color-very-dark-grey;
+    border: 1px solid $color-very-dark-grey;
     border-radius: 0.5rem;
 
     &:focus {
       outline: none;
-      border: 0.2rem solid $color-light-blue;
+      border: 2px solid $color-light-blue;
     }
   }
 }

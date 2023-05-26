@@ -30,9 +30,11 @@ const Login = () => {
     }
   }
 
-  return user ? (
-    <Navigate to='/books' />
-  ) : (
+  if (user) {
+    return <Navigate to='/books' />;
+  }
+
+  return (
     <div className='login'>
       <form onSubmit={handleSubmit} className='form'>
         <h1>Login</h1>
