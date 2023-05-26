@@ -4,6 +4,8 @@ import { BooksContext } from "../contexts/BooksContext";
 import FetchUtils from "../utils/FetchUtils";
 import DOMUtils from "../utils/DOMUtils";
 import { RedirectContext } from "../contexts/RedirectContext";
+import CookieUtils from "../utils/CookieUtils";
+import LocalStorageUtils from "../utils/LocalStorageUtils";
 
 export const useLogout = () => {
   const { dispatch: authDispatch } = useContext(AuthContext);
@@ -19,10 +21,10 @@ export const useLogout = () => {
     DOMUtils.hideAddBookPopup();
 
     try {
-      const response = await FetchUtils.get('/logout');
+      const accessToken = LocalStorageUtils.getParsed('user').accessToken;
+      const response = await FetchUtils.authorizedGet(`/logout?token=${accessToken}`);
       const json = await response.json();
-      if (response.ok) {
-        localStorage.removeItem('user');
+      if (response.ok || response.status === 401) {
         authDispatch({ type: 'LOGOUT' });
         booksDispatch({ type: 'SET_BOOKS', payload: [] });
       } else {
@@ -36,7 +38,7 @@ export const useLogout = () => {
   }
 
   const sessionLogout = async (error) => {
-    await logout();
+    logout();
     if (error.includes('token expired')) {
       redirectDispatch({ type: "SET_ERROR", payload: "Session has expired" });
     }
