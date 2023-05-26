@@ -28,8 +28,7 @@ const AuthController = () => {
 
       const accessToken = generateAccessToken(user);
       const userData = jwt.decode(accessToken);
-      res.cookie('accessToken', accessToken, { secure: true, sameSite: 'None' });
-      res.status(200).json(userData);
+      res.status(200).json({ ...userData, accessToken });
     } catch (err) {
       return ErrorUtils.handleDefaultError(res, 500);
     }
@@ -57,8 +56,7 @@ const AuthController = () => {
       
       const accessToken = generateAccessToken(user);
       const userData = jwt.decode(accessToken);
-      res.cookie('accessToken', accessToken, { secure: true, sameSite: 'None' });
-      res.status(201).json(userData);
+      res.status(201).json({ ...userData, accessToken });
     } catch (err) {
       if (err.code === 11000) {
         return ErrorUtils.handleError(res, 409, 'Email already exists!');
@@ -68,12 +66,12 @@ const AuthController = () => {
   };
 
   const getLogout = async (req, res) => {
-    const accessToken = req.cookies['accessToken'];
+    const accessToken = req.query.token;
     try {
       // blacklist access token on logout
       await addTokenToBlacklist(accessToken);
       req.user = null;
-      res.clearCookie('accessToken');
+      // res.clearCookie('accessToken');
       res.status(200).json({ msg: 'Logout successful!'})
     } catch (err) {
       return ErrorUtils.handleDefaultError(res, 500);
@@ -84,7 +82,7 @@ const AuthController = () => {
     const filteredUserData = {
       _id: user._id, 
       name: user.name, 
-      email: user.email 
+      email: user.email, 
     }
     return jwt.sign(
       filteredUserData, 

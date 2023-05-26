@@ -1,12 +1,27 @@
 import { createContext, useEffect, useReducer } from "react";
+import CookieUtils from "../utils/CookieUtils";
+import LocalStorageUtils from "../utils/LocalStorageUtils";
 
 export const AuthContext = createContext();
 
 const authReducer = (state, action) => {
   switch (action.type) {
     case 'LOGIN':
-      return { user: action.payload };
+      if (!CookieUtils.getCookie('accessToken')) {
+        CookieUtils.setAccessToken(action.payload.accessToken);
+      }
+
+      const userLocal = LocalStorageUtils.get('user');
+
+      if (!userLocal) {
+        LocalStorageUtils.set('user', JSON.stringify(action.payload));
+        return { user: action.payload.user };
+      }
+
+      return { user: JSON.parse(userLocal) };
     case 'LOGOUT':
+      CookieUtils.removeCookie('accessToken');
+      LocalStorageUtils.remove('user');
       return { user: null };
     default:
       return state;
@@ -19,7 +34,7 @@ const AuthContextProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    const userLocal = localStorage.getItem('user');
+    const userLocal = LocalStorageUtils.get('user');
     if (userLocal) {
       dispatch({ type: 'LOGIN', payload: JSON.parse(userLocal) });
     }

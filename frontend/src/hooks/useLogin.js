@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import { AuthContext } from "../contexts/AuthContext";
 import DOMUtils from "../utils/DOMUtils";
 import FetchUtils from "../utils/FetchUtils";
+import CookieUtils from "../utils/CookieUtils";
 
 export const useLogin = () => {
   const [error, setError] = useState(null);
@@ -17,7 +18,6 @@ export const useLogin = () => {
     const json = await response.json();
     
     if (response.ok) {
-      localStorage.setItem('user', JSON.stringify(json));
       dispatch({ type: 'LOGIN', payload: json });
     } else {
       setError(json.error);
