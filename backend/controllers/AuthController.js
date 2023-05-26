@@ -28,7 +28,7 @@ const AuthController = () => {
 
       const accessToken = generateAccessToken(user);
       const userData = jwt.decode(accessToken);
-      res.cookie('accessToken', accessToken, { sameSite: 'Strict' });
+      res.cookie('accessToken', accessToken, { secure: true, sameSite: 'Strict' });
       res.status(200).json(userData);
     } catch (err) {
       return ErrorUtils.handleDefaultError(res, 500);
@@ -57,7 +57,7 @@ const AuthController = () => {
       
       const accessToken = generateAccessToken(user);
       const userData = jwt.decode(accessToken);
-      res.cookie('accessToken', accessToken, { sameSite: 'Strict' });
+      res.cookie('accessToken', accessToken, { secure: true, sameSite: 'Strict' });
       res.status(201).json(userData);
     } catch (err) {
       if (err.code === 11000) {
