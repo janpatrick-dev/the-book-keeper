@@ -3,11 +3,15 @@ import ApiUtils from "./ApiUtils";
 
 const FetchUtils = {
   get: (path) => {
-    return fetch(ApiUtils.getServerUrl(path));
+    return fetch(ApiUtils.getServerUrl(path), {
+      method: 'GET',
+      credentials: 'include',
+    });
   },
   post: (path, dataObj) => {
     return fetch(ApiUtils.getServerUrl(path), {
       method: 'POST',
+      credentials: 'include',
       headers: { 
         'Content-Type': 'application/json',
       },
@@ -18,6 +22,7 @@ const FetchUtils = {
     const accessToken = CookieUtils.getCookie('accessToken');
     return fetch(ApiUtils.getServerUrl(path), {
       method: 'GET',
+      credentials: 'include',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
       }
@@ -27,6 +32,7 @@ const FetchUtils = {
     const accessToken = CookieUtils.getCookie('accessToken');
     return fetch(ApiUtils.getServerUrl(path), {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
@@ -38,6 +44,7 @@ const FetchUtils = {
     const accessToken = CookieUtils.getCookie('accessToken');
     return fetch(ApiUtils.getServerUrl(path), {
       method: 'PATCH',
+      credentials: 'include',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
@@ -49,6 +56,7 @@ const FetchUtils = {
     const accessToken = CookieUtils.getCookie('accessToken');
     return fetch(ApiUtils.getServerUrl(path), {
       method: 'DELETE',
+      credentials: 'include',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
