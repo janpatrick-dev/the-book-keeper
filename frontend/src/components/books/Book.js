@@ -2,14 +2,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
-import DOMUtils from '../../utils/DOMUtils';
 import { Link } from 'react-router-dom';
 
 const Book = ({ book, hook }) => {
-  const { updateBook, deleteBook, message, isLoading, error } = hook;
+  const { updateBook, deleteBook } = hook;
   const {
     _id,
-    userId,
     title,
     author,
     yearPublished,
@@ -30,7 +28,7 @@ const Book = ({ book, hook }) => {
     <div className={`books__item ${hasRead && 'books__item--read'}`}>
       <div className='books__item-left'>
         { imgUrl && 
-          <img src={imgUrl} alt={`Book cover image of ${title}`} className="books__item-img" />
+          <img src={imgUrl} alt={`Book cover of ${title}`} className="books__item-img" />
         }
       </div>
       <div className='books__item-right'>

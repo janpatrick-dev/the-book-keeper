@@ -3,7 +3,6 @@ import { Navigate } from 'react-router-dom';
 import { useLogin } from '../hooks/useLogin';
 import { AuthContext } from '../contexts/AuthContext';
 import StringUtils from '../utils/StringUtils';
-import { CircularProgress } from '@mui/material';
 import LoadingProgress from '../components/LoadingProgress';
 import { RedirectContext } from '../contexts/RedirectContext';
 import FormRowInputText from '../components/form/FormRowInputText';

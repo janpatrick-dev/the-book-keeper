@@ -3,7 +3,6 @@ import FetchUtils from "../utils/FetchUtils";
 import DOMUtils from "../utils/DOMUtils";
 import { useLogout } from "./useLogout";
 import { BooksContext } from "../contexts/BooksContext";
-import { RedirectContext } from "../contexts/RedirectContext";
 import { AuthContext } from "../contexts/AuthContext";
 
 export const useBook = () => {
@@ -14,7 +13,6 @@ export const useBook = () => {
   const [error, setError] = useState(null);
   const { user } = useContext(AuthContext);
   const { dispatch: booksDispatch } = useContext(BooksContext);
-  const { dispatch: redirectDispatch } = useContext(RedirectContext);
   const { sessionLogout } = useLogout();
 
   const reset = () => {

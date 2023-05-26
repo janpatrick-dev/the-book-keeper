@@ -1,6 +1,7 @@
 import { useContext, useState } from "react"
 import { AuthContext } from "../contexts/AuthContext";
 import DOMUtils from "../utils/DOMUtils";
+import FetchUtils from "../utils/FetchUtils";
 
 export const useLogin = () => {
   const [error, setError] = useState(null);
@@ -12,11 +13,7 @@ export const useLogin = () => {
     setError(null);
     DOMUtils.hideDrawer();
 
-    const response = await fetch('/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    });
+    const response = await FetchUtils.post('/login', { email, password });
     const json = await response.json();
     
     if (response.ok) {

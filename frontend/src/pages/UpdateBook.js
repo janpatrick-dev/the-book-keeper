@@ -12,7 +12,7 @@ import { AuthContext } from "../contexts/AuthContext";
 
 const UpdateBook = () => {
   const { id } = useParams();
-  const { updateBook, updateLoading, message, error } = useBook();
+  const { updateBook, updateLoading, error } = useBook();
   const { sessionLogout } = useLogout();
   const { user } = useContext(AuthContext);
   const [title, setTitle] = useState('');

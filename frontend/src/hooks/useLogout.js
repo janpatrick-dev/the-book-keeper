@@ -19,7 +19,7 @@ export const useLogout = () => {
     DOMUtils.hideAddBookPopup();
 
     try {
-      const response = await fetch('/logout');
+      const response = await FetchUtils.get('/logout');
       const json = await response.json();
       if (response.ok) {
         localStorage.removeItem('user');
@@ -43,5 +43,5 @@ export const useLogout = () => {
     booksDispatch({ type: "SET_BOOKS", payload: [] });
   }
 
-  return { logout, sessionLogout };
+  return { logout, sessionLogout, loading, error };
 }
