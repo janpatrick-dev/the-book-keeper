@@ -22,7 +22,7 @@ const Books = () => {
   const [isBooksLoading, setIsBooksLoading] = useState(false);
   const { user } = useContext(AuthContext);
   const { books, dispatch: booksDispatch } = useContext(BooksContext);
-  const { error: redirectError, dispatch: redirectDispatch } =
+  const { dispatch: redirectDispatch } =
     useContext(RedirectContext);
   const { sessionLogout } = useLogout();
   const bookHook = useBook();
