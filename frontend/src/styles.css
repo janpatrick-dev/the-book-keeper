@@ -608,6 +608,11 @@ html {
   transform: translateX(100%);
 }
 
+.center {
+  margin: 0 auto;
+  text-align: center;
+}
+
 @media (max-width: 900px) {
   .hide {
     display: none !important;
