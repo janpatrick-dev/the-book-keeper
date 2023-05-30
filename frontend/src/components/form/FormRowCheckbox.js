@@ -6,6 +6,7 @@ const FormRowCheckbox = (props) => {
       <input 
         type='checkbox'
         name={name}
+        id={name}
         value={value}
         onChange={onChange}
         checked={checked}

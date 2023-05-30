@@ -9,6 +9,7 @@ const FormRowInputText = (props) => {
         value={value} 
         onChange={onChange}
         name={name}
+        id={name}
         className='form__input-text'
         placeholder={placeholder}
         required={required || false}
